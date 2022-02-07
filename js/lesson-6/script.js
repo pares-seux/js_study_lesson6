@@ -1,26 +1,22 @@
 "use strict";
 
-const searchNumber = 50;
-const attempts = 5;
-let checkNumber;
-
 const isNumber = function (num) {
   const regexp = /^\d+$/;
   return !isNaN(parseFloat(num)) && isFinite(num) && regexp.test(num);
 };
 
-function startGame() {
-  let askedNumber = prompt("Угадай число от 1 до 100");
-  checkNumber = numbers(searchNumber, attempts);
-  let gameResult = checkNumber(askedNumber);
+function startGame(attempts) {
+  let number = Math.round(Math.random() * 101);
+  const checkNumber = numbers(number, attempts, '');
+  console.log(number);
+  const gameResult = checkNumber(prompt("Угадай число от 1 до 100"));
   if (!confirm(gameResult) || gameResult === "Игра окончена!") {
     return;
   }
-  startGame();
-}
+  startGame(10);
 
-function numbers(referenceNumber, attemptsCounter) {
-  let result = "";
+  function numbers(referenceNumber, attemptsCounter, result) {
+  //let result = "";
   return function (guessedNumber) {
     attemptsCounter--;
     console.log("step " + attemptsCounter, guessedNumber);
@@ -55,17 +51,20 @@ function numbers(referenceNumber, attemptsCounter) {
     } else {
       console.log(attemptsCounter, guessedNumber, referenceNumber);
       if (guessedNumber === null) {
-        result = "Игра окончена!";
+       result = "Игра окончена!";
       } else {
         if (+guessedNumber !== referenceNumber) {
-          result = "Попытки закончились, хотите сыграть еще?";
+         result =  "Попытки закончились, хотите сыграть еще?";
         } else {
-          result = "Поздравляю, Вы угадали!!! Хотели бы сыграть еще?";
+         result = "Поздравляю, Вы угадали!!! Хотели бы сыграть еще?";
         }
       }
     }
     return result;
   };
 }
+}
 
-startGame();
+
+
+startGame(10);
