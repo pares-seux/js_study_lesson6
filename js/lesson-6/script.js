@@ -6,9 +6,7 @@ const isNumber = function (num) {
 };
 
 function startGame(attempts) {
-  let number = Math.round(Math.random() * 101);
-  const checkNumber = numbers(number, attempts, '');
-  console.log(number);
+  const checkNumber = numbers(Math.round(Math.random() * 101), attempts, '');
   const gameResult = checkNumber(prompt("Угадай число от 1 до 100"));
   if (!confirm(gameResult) || gameResult === "Игра окончена!") {
     return;
